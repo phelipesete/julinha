@@ -1,18 +1,36 @@
-const player = document.getElementById('player');
-const jumpHeight = 200;
-const jumpDuration = 1000; // in milliseconds
+document.addEventListener("DOMContentLoaded", function () {
+    const character = document.querySelector(".character");
+    let jump = false;
+    let jumpCount = 0;
 
-function jump() {
-  player.style.transition = `bottom ${jumpDuration}ms ease-out`;
-  player.style.bottom = `${jumpHeight}px`;
-  setTimeout(() => {
-    player.style.transition = `bottom ${jumpDuration}ms ease-in`;
-    player.style.bottom = '0';
-  }, jumpDuration);
-}
+    function jumpUp() {
+        if (jumpCount < 15) {
+            jumpCount++;
+            let position = 150 - 10 * jumpCount;
+            character.style.bottom = position + "px";
+            requestAnimationFrame(jumpUp);
+        } else {
+            jumpDown();
+        }
+    }
 
-document.addEventListener('keydown', (event) => {
-  if (event.code === 'Space') {
-    jump();
-  }
+    function jumpDown() {
+        if (jumpCount > 0) {
+            jumpCount--;
+            let position = 150 - 10 * jumpCount;
+            character.style.bottom = position + "px";
+            requestAnimationFrame(jumpDown);
+        } else {
+            jump = false;
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.keyCode === 32 && !jump) {
+            jump = true;
+            jumpUp();
+        }
+    }
+
+    document.addEventListener("keydown", handleKeyPress);
 });
