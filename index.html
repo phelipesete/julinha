@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jumping on Clouds</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    #game-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background-color: #87ceeb;
+    }
+    #character {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .cloud {
+      position: absolute;
+      bottom: 50px;
+      width: 100px;
+      height: 60px;
+      background-color: #fff;
+      border-radius: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <img id="character" src="link_para_a_imagem.jpg" alt="Character">
+    <!-- Clouds will be dynamically created here -->
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const character = document.getElementById("character");
+    let jumping = false;
+    let bottom = 0;
+
+    document.addEventListener("touchstart", () => {
+      if (!jumping) {
+        jumping = true;
+        jump();
+      }
+    });
+
+    function jump() {
+      let jumpInterval = setInterval(() => {
+        bottom += 5;
+        character.style.bottom = bottom + "px";
+        if (bottom > 150) {
+          clearInterval(jumpInterval);
+          let fallInterval = setInterval(() => {
+            bottom -= 5;
+            character.style.bottom = bottom + "px";
+            if (bottom === 0) {
+              jumping = false;
+              clearInterval(fallInterval);
+            }
+          }, 20);
+        }
+      }, 20);
+    }
+
+    function createCloud() {
+      const cloud = document.createElement("div");
+      cloud.className = "cloud";
+      const cloudLeft = Math.random() * (window.innerWidth - 100);
+      cloud.style.left = cloudLeft + "px";
+      document.getElementById("game-container").appendChild(cloud);
+      setTimeout(() => cloud.remove(), 5000);
+    }
+
+    setInterval(createCloud, 2000);
+  });
+</script>
+</body>
+</html>
