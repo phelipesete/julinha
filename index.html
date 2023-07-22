@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Game da julia </title>
+    <style>
+        /* Estilize o elemento de jogo (div) e o personagem (imagem) aqui */
+        /* Por exemplo:*/
+        #game-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #87CEEB;
+            overflow: hidden;
+        }
+
+        #player {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            bottom: 0;
+            background-image: url('IMG-20230717-WA0120.jpg');
+            background-size: cover;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="player"></div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
